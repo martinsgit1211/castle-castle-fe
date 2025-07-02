@@ -6,14 +6,14 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function ManufacturerRegister() {
   useEffect(() => {
-      const originalTitle = document.title;
-      document.title = "Manufacturer|SignUp";
-      return () => {
-        document.title = originalTitle;
-      };
-    }, []);
+    const originalTitle = document.title;
+    document.title = "Seller | Sign Up";
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
+
   const navigate = useNavigate();
-  
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +24,6 @@ function ManufacturerRegister() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -38,13 +37,11 @@ function ManufacturerRegister() {
         role: "Manufacturer",
       });
 
-      console.log("Registration successful:", res.data);
       setMessage("Registration successful! Redirecting...");
       setTimeout(() => {
         navigate("/manufacturer/login");
-      }, 5000); // Redirect after 5 seconds
+      }, 5000);
     } catch (err) {
-      console.error(err);
       setError(err.response?.data?.message || "Something went wrong");
     }
   };
@@ -52,95 +49,91 @@ function ManufacturerRegister() {
   return (
     <>
       <Nav />
-      <div className="inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className="inset-0 bg-[#C6DBEF] bg-opacity-40 flex items-center justify-center p-4">
         <div className="rounded-2xl shadow-lg max-w-md w-full">
           <form
             onSubmit={handleRegister}
-            className="bg-[#1a1a1a] p-5 sm:p-6 md:p-8 rounded-lg shadow-lg w-full"
+            className="bg-gradient-to-br from-[#FFFDD0] via-[#CCCCFF] to-[#B3EBF2] p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl"
           >
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-center">
-              Manufacturer <span className="text-yellow-400">Registration</span>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">
+              Seller/Agent <span className="text-yellow-500">Registration</span>
             </h2>
 
-            {error && (
-              <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
-            )}
-            {message && (
-              <p className="text-green-500 text-sm mb-4 text-center">{message}</p>
-            )}
-            <div className="mb-3 sm:mb-4">
-              <label className="block mb-1 text-sm sm:text-base">
-                Company Name
-              </label>
+            {error && <p className="text-red-600 text-sm mb-4 text-center">{error}</p>}
+            {message && <p className="text-green-600 text-sm mb-4 text-center">{message}</p>}
+
+            {/* Company Name */}
+            <div className="mb-4">
+              <label className="block mb-1 text-sm text-gray-800">Company Name</label>
               <input
                 type="text"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white border border-gray-600 focus:outline-none focus:border-yellow-400 text-sm sm:text-base"
+                className="w-full px-4 py-2 rounded bg-white text-gray-800 border border-gray-300 focus:outline-none focus:border-yellow-400"
                 required
               />
             </div>
 
-            <div className="mb-3 sm:mb-4">
-              <label className="block mb-1 text-sm sm:text-base">Email</label>
+            {/* Email */}
+            <div className="mb-4">
+              <label className="block mb-1 text-sm text-gray-800">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white border border-gray-600 focus:outline-none focus:border-yellow-400 text-sm sm:text-base"
+                className="w-full px-4 py-2 rounded bg-white text-gray-800 border border-gray-300 focus:outline-none focus:border-yellow-400"
                 required
               />
             </div>
 
-            <div className="mb-3 sm:mb-4 relative">
-              <label className="block mb-1 text-sm sm:text-base">
-                Password
-              </label>
+            {/* Password */}
+            <div className="mb-4 relative">
+              <label className="block mb-1 text-sm text-gray-800">Password</label>
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white border border-gray-600 focus:outline-none focus:border-yellow-400 text-sm sm:text-base"
+                className="w-full px-4 py-2 rounded bg-white text-gray-800 border border-gray-300 focus:outline-none focus:border-yellow-400"
                 required
               />
-               <span
-                          className="absolute top-11 sm:top-12 right-3 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-                          onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword ? <FiEyeOff /> : <FiEye />}
-                          </span>
+              <span
+                className="absolute top-11 right-3 text-gray-500 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </span>
             </div>
 
-            <div className="mb-4 sm:mb-5 relative">
-              <label className="block mb-1 text-sm sm:text-base">
-                Confirm Password
-              </label>
+            {/* Confirm Password */}
+            <div className="mb-6 relative">
+              <label className="block mb-1 text-sm text-gray-800">Confirm Password</label>
               <input
                 type={showPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3 py-2 rounded bg-[#2a2a2a] text-white border border-gray-600 focus:outline-none focus:border-yellow-400 text-sm sm:text-base"
+                className="w-full px-4 py-2 rounded bg-white text-gray-800 border border-gray-300 focus:outline-none focus:border-yellow-400"
                 required
               />
-               <span
-                          className="absolute top-11 sm:top-12 right-3 transform -translate-y-1/2 text-gray-400 cursor-pointer"
-                          onClick={() => setShowPassword(!showPassword)}>
-                            {showPassword ? <FiEyeOff /> : <FiEye />}
-                          </span>
+              <span
+                className="absolute top-11 right-3 text-gray-500 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </span>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-yellow-400 text-black py-2 rounded hover:bg-yellow-300 font-semibold transition text-sm sm:text-base"
+              className="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-2 rounded transition"
             >
               Register
             </button>
 
-            <p className="mt-4 text-center text-xs sm:text-sm">
+            {/* Footer Link */}
+            <p className="mt-4 text-center text-sm text-gray-700">
               Already have an account?{" "}
-              <Link
-                to="/manufacturer/login"
-                className="text-yellow-400 hover:underline"
-              >
+              <Link to="/manufacturer/login" className="text-yellow-500 hover:underline">
                 Login here
               </Link>
             </p>

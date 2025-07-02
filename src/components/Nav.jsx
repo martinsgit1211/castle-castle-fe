@@ -5,15 +5,16 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full lg:border-b-1 lg:border-b-yellow-500 px-4 sm:px-15 pt-4 bg-[#0f0f0f] z-50 relative">
+    <nav className="w-full px-4 sm:px-15 pt-4 bg-gradient-to-r from-[#FFFDD0] via-[#CCCCFF] to-[#B3EBF2] z-50 relative shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <Link to='/' className="text-[2.2em] sm:text-[3em] md:text-[3em] lg:text-[3.2em] font-bold">
-          Sale<span className="text-yellow-400">Hub</span>
+        <Link to='/' className="text-[2.2em] sm:text-[2em] md:text-[2.2em] lg:text-[2.2em] font-bold text-gray-800">
+          Castle<span className="text-yellow-600">&Castle</span>
         </Link>
+
         {/* Hamburger menu for mobile & tablets */}
         <button
-          className="lg:hidden focus:outline-none"
+          className="lg:hidden focus:outline-none text-gray-700"
           onClick={() => setIsOpen(!isOpen)}
         >
           <svg
@@ -41,57 +42,60 @@ const Nav = () => {
           </svg>
         </button>
 
-        {/* Desktop Nav - hidden on smaller screens */}
+        {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-10 text-sm">
-            <div className="flex gap-4 border-r-1 border-r-yellow-500 pr-10">
-          <Link to="/wholesaler/login" className="px-4 py-2 border text-white border-white rounded-lg hover:bg-white hover:text-black transition">
-            Login (W)
-          </Link>
-          <Link
-            to="/wholesaler/register"
-            className="px-4 py-2 text-yellow-800 bg-white rounded-lg hover:bg-white hover:text-black transition"
-          >
-            Sign up (W)
-          </Link>
+          <div className="flex gap-4 border-r pr-10 border-yellow-500">
+            <Link to="/wholesaler/login" className="px-4 py-2 border text-gray-800 border-gray-800 rounded-lg hover:bg-gray-800 hover:text-white transition">
+              Login (Buyer/Home Seeker)
+            </Link>
+            <Link
+              to="/wholesaler/register"
+              className="px-4 py-2 text-white bg-yellow-500 rounded-lg hover:bg-yellow-600 transition"
+            >
+              Sign up (Buyer/Home Seeker)
+            </Link>
+          </div>
 
-            </div>
-            <div className="flex gap-4">
-          <Link to="/manufacturer/login" className="px-4 py-2 border border-yellow-400 text-yellow-400 rounded-lg hover:bg-yellow-400 hover:text-black transition">
-            Login (M)
-          </Link>
-          <Link
-            to="/manufacturer/register"
-            className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-400 hover:text-black transition"
-          >
-            Sign up (M)
-          </Link>
-
-            </div>
+          <div className="flex gap-4">
+            <Link to="/manufacturer/login" className="px-4 py-2 border border-yellow-500 text-yellow-600 rounded-lg hover:bg-yellow-500 hover:text-white transition">
+              Login (Seller/Agent)
+            </Link>
+            <Link
+              to="/manufacturer/register"
+              className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition"
+            >
+              Sign up (Seller/Agent)
+            </Link>
+          </div>
         </div>
       </div>
 
       {/* Mobile/Tablet Nav */}
       {isOpen && (
-        <div className="lg:hidden border-t border-t-yellow-400 mt-4 flex flex-col gap-4 items-center text-[1.1em] bg-[#0f0f0f] pb-6">
-          <Link to="/wholesaler/login" 
-          className="px-10 py-2 border border-white rounded-lg hover:bg-white hover:text-black transition mt-4 px-8"
+        <div className="lg:hidden border-t border-yellow-400 mt-4 flex flex-col gap-4 items-center text-[1.1em] bg-gradient-to-r from-[#FFFDD0] via-[#CCCCFF] to-[#B3EBF2] pb-6">
+          <Link
+            to="/wholesaler/login"
+            className="px-10 py-2 border border-gray-800 text-gray-800 rounded-lg hover:bg-gray-800 hover:text-white transition mt-4"
           >
-            Login (W)
+            Login (Buyer/Home Seeker)
           </Link>
           <Link
             to="/wholesaler/register"
-            className="rounded-lg px-4 transition border-white hover:border hover:border-white hover:text-white hover:bg-black hover:text-white bg-white text-black py-2 px-8"
+            className="rounded-lg px-8 py-2 bg-yellow-500 text-white hover:bg-yellow-600 transition"
           >
-            Sign up (W)
+            Sign up (Buyer/Home Seeker)
           </Link>
-          <Link to="/manufacturer/login" className="px-10 py-2 border border-yellow-400 rounded-lg text-yellow-400 hover:bg-black transition hover:text-black hover:bg-yellow-400">
-            Login (M)
+          <Link
+            to="/manufacturer/login"
+            className="px-10 py-2 border border-yellow-500 text-yellow-600 rounded-lg hover:bg-yellow-500 hover:text-white transition"
+          >
+            Login (Seller/Agent)
           </Link>
           <Link
             to="/manufacturer/register"
-            className="px-8 px-4 py-2 text-black hover:border hover:border-yellow-400 rounded-lg bg-yellow-400 hover:text-yellow-400 hover:bg-black transition"
+            className="px-8 py-2 bg-yellow-400 text-black hover:bg-yellow-500 hover:text-white rounded-lg transition"
           >
-            Sign up (M)
+            Sign up (Seller/Agent)
           </Link>
         </div>
       )}

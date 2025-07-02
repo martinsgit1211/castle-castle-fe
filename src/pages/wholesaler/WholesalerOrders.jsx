@@ -6,10 +6,10 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   const statusStyles = {
-    Pending: "bg-yellow-500 text-gray-800",
-    Shipped: "bg-blue-500",
-    Delivered: "bg-green-500",
-    Cancelled: "bg-red-500",
+    Pending: "bg-yellow-300 text-gray-800",
+    Shipped: "bg-blue-400 text-white",
+    Delivered: "bg-green-400 text-white",
+    Cancelled: "bg-red-400 text-white",
   };
 
   useEffect(() => {
@@ -21,8 +21,7 @@ const Orders = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-  
-        // Ensure response is an array
+
         if (Array.isArray(res.data)) {
           setOrders(res.data);
         } else {
@@ -36,71 +35,64 @@ const Orders = () => {
         setLoading(false);
       }
     };
-  
+
     fetchOrders();
   }, []);
-  
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-white">
+      <div className="min-h-screen flex items-center justify-center text-gray-700">
         Loading orders...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white p-6">
+    <div className="min-h-screen bg-gradient-to-br from-[#FFFDD0] via-[#F3F4F6] to-[#B3EBF2] text-gray-800 p-6">
       <h2 className="text-2xl font-semibold mb-6">📦 My Orders</h2>
 
       {orders.length === 0 ? (
-        <p className="text-gray-400">You have not made any orders yet.</p>
+        <p className="text-gray-600">You have not made any orders yet.</p>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
             <div
               key={order._id}
-              className="bg-[#1c1c1c] p-4 rounded-lg border border-[#2c2c2c]"
+              className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"
             >
               <div className="flex justify-between items-center mb-2">
                 <div>
-                  <p className="font-semibold text-yellow-400 text-lg">Order #{order._id.slice(-5)}</p>
-                  {/* <p>Status: {order.status}</p> */}
-                  {/* <p>Total: ₦{order.total}</p> */}
-                  <p className="text-sm text-gray-400">
+                  <p className="font-semibold text-yellow-600 text-lg">
+                    Order #{order._id.slice(-5)}
+                  </p>
+                  <p className="text-sm text-gray-500">
                     Date: {new Date(order.createdAt).toLocaleDateString()}
                   </p>
                 </div>
-                <div>
                 <span
-                  className={`text-xs px-3 py-1 rounded-full font-semibold ${statusStyles[order.status] || "bg-gray-500"}`}
+                  className={`text-xs px-3 py-1 rounded-full font-semibold ${statusStyles[order.status] || "bg-gray-400 text-white"}`}
                 >
                   {order.status}
                 </span>
-              
+              </div>
+
+              <div className="flex flex-row gap-4 justify-between items-center">
+                <div className="text-sm text-gray-700">
+                  {order.items.map((item, index) => (
+                    <p key={index}>
+                      {item.product?.name || "Unknown"} x {item.quantity}
+                      {item.product?.price && (
+                        <span className="ml-2 text-gray-500">
+                          (₦{item.product.price})
+                        </span>
+                      )}
+                    </p>
+                  ))}
                 </div>
-
+                <div className="text-right font-semibold text-gray-800">
+                  Total: ₦{order.total.toLocaleString()}
+                </div>
               </div>
-<div className="flex flex-row gap-4 justify-between items-center">
-              <div className="text-sm text-gray-300 mb-2">
-                {order.items.map((item, index) => (
-                  <p key={index}>
-                    {item.product?.name || "Unknown"} x {item.quantity}
-                    {item.product?.price && (
-                      <span className="ml-2 text-gray-500">
-                        (₦{item.product.price})
-                      </span>
-                    )}
-                  </p>
-                ))}
-              </div>
-               <div className="text-right font-semibold">
-                Total: ₦{order.total.toLocaleString()}
-              </div>
-
-</div>
-
-              
             </div>
           ))}
         </div>
